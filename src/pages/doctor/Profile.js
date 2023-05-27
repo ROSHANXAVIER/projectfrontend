@@ -75,8 +75,14 @@ const Profile = () => {
   }, []);
   return (
     <Layout>
-      <h1>Manage Profile</h1>
+      {!doctor && (
+        <div>
+          <h1 style={{textAlign:"center"}}>Apply to be a doctor to maintain a profile </h1>
+        </div>
+      )}
       {doctor && (
+        <div>
+        <h1>Manage Profile</h1>
         <Form
           layout="vertical"
           onFinish={handleFinish}
@@ -192,6 +198,7 @@ const Profile = () => {
             </Col>
           </Row>
         </Form>
+        </div>
       )}
     </Layout>
   );

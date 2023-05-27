@@ -13,6 +13,7 @@ const NotificationPage = () => {
   //   handle read notification
   const handleMarkAllRead = async () => {
     try {
+      console.log(user,'user');
       dispatch(showLoading());
       const res = await axios.post(
         "/api/v1/user/get-all-notification",
@@ -26,6 +27,7 @@ const NotificationPage = () => {
         }
       );
       dispatch(hideLoading());
+      window.location.reload();
       if (res.data.success) {
         message.success(res.data.message);
       } else {
@@ -69,7 +71,7 @@ const NotificationPage = () => {
       <Tabs>
         <Tabs.TabPane tab="unRead" key={0}>
           <div className="d-flex justify-content-end">
-            <h4 className="p-2" onClick={handleMarkAllRead}>
+            <h4 className="p-2" style={{ cursor: "pointer" }} onClick={handleMarkAllRead}>
               Mark All Read
             </h4>
           </div>
