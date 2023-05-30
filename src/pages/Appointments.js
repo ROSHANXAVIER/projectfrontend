@@ -73,7 +73,7 @@ const Appointments = () => {
 
   return (
     <Layout>
-      <h1>Appoinmtnets Lists</h1>
+      <h1>Appointments Lists</h1>
       <Table columns={columns} dataSource={appointments} />
       <h1>Enter the call portal during your time slot.</h1>
     </Layout>
