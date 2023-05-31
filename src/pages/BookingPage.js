@@ -34,7 +34,7 @@ const BookingPage = () => {
       console.log(error);
     }
   };
-  // ============ handle availiblity
+  // ============ handle availability
   const handleAvailability = async () => {
     try {
       dispatch(showLoading());
@@ -86,7 +86,7 @@ const BookingPage = () => {
       );
       dispatch(hideLoading());
       if (res.data.success) {
-        message.success(res.data.message);
+        message.error(res.data.message);
       }
     } catch (error) {
       dispatch(hideLoading());
