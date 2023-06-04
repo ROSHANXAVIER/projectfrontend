@@ -5,11 +5,11 @@ import moment from "moment";
 import { Table } from "antd";
 import {VideoCameraOutlined} from '@ant-design/icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { faVideoSlash } from '@fortawesome/free-solid-svg-icons'
 const Appointments = () => {
   const [appointments, setAppointments] = useState([]);
-
+  const navigate = useNavigate();
   const getAppointments = async () => {
     try {
       const res = await axios.get("/api/v1/user/user-appointments", {
@@ -70,7 +70,7 @@ const Appointments = () => {
         <div className="d-flex">
         {record.status === "approved" && (
           <span>
-          <VideoCameraOutlined style={{ fontSize: '30px', color: 'red',paddingLeft:'20px',cursor:'pointer' }}/>
+          <VideoCameraOutlined onClick={()=>{navigate('/Videocall')}} style={{ fontSize: '30px', color: 'red',paddingLeft:'20px',cursor:'pointer' }}/>
         </span>
        
         )}
