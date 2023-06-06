@@ -3,9 +3,93 @@
   align-items: center;
   justify-content: center;
   height: 100vh;
+  float: right;
+  background-color: rgb(255, 255, 255);
+  color: #e3d6d6;
 }
 
 .register-form {
-  border: 1px solid gray;
+  padding: 100px;
+  width: 100vh;
+}
+.img img{
+  float:left;
+  width:120vh;
+  height:100vh;
+}
+.text-center{
+  color: rgb(0, 0, 0);
+  font-family:sans-serif;
+}
+
+.register-form label{
+  color:rgb(0, 0, 0);
+  font-size: 15px;
+  display: block;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.register-form input{
+  color: rgb(0, 0, 0);
+  border-color: 20px rgb(137, 130, 130);
+  border-radius: 20px;
+  background-color: transparent;
+  display: inline;
+}
+
+.link{
+  color: rgb(0, 0, 0);
+}
+
+.btn{
+  background-color: rgb(67, 136, 215);
+  font-size: 15px;
+  color: rgb(255, 255, 255);
+  align-content: center;
+  margin-right: 20px;
+}
+
+.btn:hover{
+  background-color:rgb(80, 159, 173);
+}
+
+.img1 img{
+  float:right;
+  width:65vw;
+  height:100vh;
+}
+
+.form-container-login{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  float: right;
+  width: 30vw;
+  background-color: rgb(255, 255, 255);
+  color: #e3d6d6;
+  
+  
+}
+
+.login-form {
+ padding-right: 100px;
+  width: 90vh;
+  
   padding: 30px;
+}
+
+.login-form label{
+  color:rgb(0, 0, 0);
+  font-size: 15px;
+  display: block;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.login-form input{
+  color: rgb(0, 0, 0);
+  border-color: 20px rgb(137, 130, 130);
+  border-radius: 20px;
+  background-color: transparent;
+  display: inline;
 }
