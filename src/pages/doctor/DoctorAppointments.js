@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Layout from "./../../components/Layout";
-
+import {VideoCameraOutlined} from '@ant-design/icons';
 import axios from "axios";
 
 import moment from "moment";
@@ -69,7 +69,7 @@ const DoctorAppointments = () => {
       dataIndex: "status",
     },
     {
-      title: "Actions",
+      title: "Conference",
       dataIndex: "actions",
       render: (text, record) => (
         <div className="d-flex">
@@ -89,6 +89,14 @@ const DoctorAppointments = () => {
               </button>
             </div>
           )}
+          {
+            record.status!=="pending" && (
+              <span>
+                <VideoCameraOutlined style={{ fontSize: '30px', color: 'red',paddingLeft:'20px' }}/>
+              </span>
+            )
+          }
+          
         </div>
       ),
     },

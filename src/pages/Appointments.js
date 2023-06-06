@@ -4,10 +4,12 @@ import Layout from "./../components/Layout";
 import moment from "moment";
 import { Table } from "antd";
 import {VideoCameraOutlined} from '@ant-design/icons';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { faVideoSlash } from '@fortawesome/free-solid-svg-icons'
 const Appointments = () => {
   const [appointments, setAppointments] = useState([]);
-
+  const navigate = useNavigate();
   const getAppointments = async () => {
     try {
       const res = await axios.get("/api/v1/user/user-appointments", {
@@ -17,6 +19,7 @@ const Appointments = () => {
       });
       if (res.data.success) {
         setAppointments(res.data.data);
+        console.log(res.data.data);
       }
     } catch (error) {
       console.log(error);
@@ -63,10 +66,22 @@ const Appointments = () => {
     {
       title:"Video Call",
       dataIndex:"call",
-      render: (record) => (
-        <span>
-          <VideoCameraOutlined style={{ fontSize: '30px', color: 'red',paddingLeft:'20px' }}/>
+      render: (text,record) => (
+        <div className="d-flex">
+        {record.status === "approved" && (
+          <span>
+          <VideoCameraOutlined onClick={()=>{navigate('/Videocall')}} style={{ fontSize: '30px', color: 'red',paddingLeft:'20px',cursor:'pointer' }}/>
         </span>
+       
+        )}
+        {record.status !== "approved" && (
+          <span>
+          <FontAwesomeIcon icon={faVideoSlash} style={{ fontSize: '30px', color: 'red',paddingLeft:'20px' }}/>
+        </span>
+       
+        )}
+         </div>
+       
       ),
     },
   ];
