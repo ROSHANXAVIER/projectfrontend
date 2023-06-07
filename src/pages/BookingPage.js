@@ -6,8 +6,10 @@ import { DatePicker, message, TimePicker } from "antd";
 import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
 import { showLoading, hideLoading } from "../redux/features/alertSlice";
+import {  Input,Radio} from "antd";
 
 const BookingPage = () => {
+  const { TextArea } = Input;
   const { user } = useSelector((state) => state.user);
   const params = useParams();
   const [doctors, setDoctors] = useState([]);
@@ -15,6 +17,11 @@ const BookingPage = () => {
   const [time, setTime] = useState();
   const [isAvailable, setIsAvailable] = useState(false);
   const dispatch = useDispatch();
+  const [age,setAge]=useState("");
+  const [name,setName]=useState("");
+  const [blood,setBlood]=useState("");
+  const [gender,setGender]=useState("");
+  const [ill,setIll]=useState("");
   // login user data
   const getUserData = async () => {
     try {
@@ -77,6 +84,11 @@ const BookingPage = () => {
           userInfo: user,
           date: date,
           time: time,
+          name:name,
+          age:age,
+          gender:gender,
+          bloodgroup:blood,
+          illness:ill,
         },
         {
           headers: {
@@ -86,11 +98,12 @@ const BookingPage = () => {
       );
       dispatch(hideLoading());
       if (res.data.success) {
-        message.error(res.data.message);
+        message.success(res.data.message);
       }
     } catch (error) {
       dispatch(hideLoading());
       console.log(error);
+      message.error(error);
     }
   };
 
@@ -136,7 +149,22 @@ const BookingPage = () => {
               >
                 Check Availability
               </button>
-
+              <br></br>
+              <br></br>
+              <Input type="text" placeholder="Full Name" onChange={(e)=>{setName(e.target.value)}}></Input>
+              
+              <br></br>
+              <Input type="text" placeholder="Age" onChange={(e)=>{setAge(e.target.value)}}></Input>
+              <br></br>
+              <Radio.Group onChange={(e)=>{setGender(e.target.value)}} defaultValue="a">
+      <Radio.Button value="Male">Male</Radio.Button>
+      <Radio.Button value="Female">Female</Radio.Button>
+              </Radio.Group>
+              <br></br>
+              <Input type="text" placeholder="Blood Group" onChange={(e)=>{setBlood(e.target.value)}}></Input>
+              <br></br>
+              <TextArea rows={4} placeholder="Brief your symptoms/illness" maxLength={6} onChange={(e)=>{setIll(e.target.value)}}/>
+              <br></br>
               <button className="btn btn-dark mt-2" onClick={handleBooking}>
                 Book Now
               </button>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Layout from "./../components/Layout";
 import moment from "moment";
-import { Table } from "antd";
+import { Table,Modal,Button } from "antd";
 import {VideoCameraOutlined} from '@ant-design/icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -10,6 +10,18 @@ import { faVideoSlash } from '@fortawesome/free-solid-svg-icons'
 const Appointments = () => {
   const [appointments, setAppointments] = useState([]);
   const navigate = useNavigate();
+  
+    const [isModalOpen, setIsModalOpen] = useState(false);
+  
+    const showModal = () => {
+      setIsModalOpen(true);
+    };
+    const handleCancel = () => {
+      setIsModalOpen(false);
+    };
+    const handleOk = () => {
+      setIsModalOpen(false);
+    };
   const getAppointments = async () => {
     try {
       const res = await axios.get("/api/v1/user/user-appointments", {
@@ -35,20 +47,7 @@ const Appointments = () => {
       title: "ID",
       dataIndex: "_id",
     },
-    // {
-    //   title: "Name",
-    //   dataIndex: "name",
-    //   render: (text, record) => (
-    //     <span>
-    //       {record.doctorInfo.firstName} {record.doctorInfo.lastName}
-    //     </span>
-    //   ),
-    // },
-    // {
-    //   title: "Phone",
-    //   dataIndex: "phone",
-    //   render: (text, record) => <span>{record.doctorInfo.phone}</span>,
-    // },
+
     {
       title: "Date & Time",
       dataIndex: "date",
@@ -62,6 +61,24 @@ const Appointments = () => {
     {
       title: "Status",
       dataIndex: "status",
+    },
+    {
+      title:"Details",
+      dataIndex:"date",
+      render:(text,record)=>(
+        <div>
+            <Button type="primary" onClick={showModal}>
+        Details
+      </Button>
+      <Modal title="Patient Details" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+        <p>Name: {record.name}</p>
+        <p>Age: {record.age}</p>
+        <p>Gender: {record.gender}</p>
+        <p>BloodGroup: {record.bloodgroup}</p>
+        <p>Symptoms: {record.illness}</p>
+      </Modal>
+      </div>
+      ),
     },
     {
       title:"Video Call",
