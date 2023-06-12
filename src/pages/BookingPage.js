@@ -142,7 +142,7 @@ const BookingPage = () => {
                   setTime(moment(value).format("HH:mm"));
                 }}
               />
-
+                
               <button
                 className="btn btn-primary mt-2"
                 onClick={handleAvailability}
@@ -163,7 +163,7 @@ const BookingPage = () => {
               <br></br>
               <Input type="text" placeholder="Blood Group" onChange={(e)=>{setBlood(e.target.value)}}></Input>
               <br></br>
-              <TextArea rows={4} placeholder="Brief your symptoms/illness" maxLength={6} onChange={(e)=>{setIll(e.target.value)}}/>
+              <TextArea rows={4} placeholder="Brief your symptoms/illness" maxLength={60} onChange={(e)=>{setIll(e.target.value)}}/>
               <br></br>
               <button className="btn btn-dark mt-2" onClick={handleBooking}>
                 Book Now
