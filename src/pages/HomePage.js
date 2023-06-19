@@ -5,6 +5,7 @@ import { Row, Select } from "antd";
 import DoctorList from "../components/DoctorList";
 import { useSelector } from "react-redux";
 import PieChart from "../components/PieChart";
+import { blueGrey } from "@mui/material/colors";
 
 const { Option } = Select;
 
@@ -36,8 +37,6 @@ const HomePage = () => {
     piedataDoctor();
   }, []);
 
-  const labe = ["PENDING", "APPROVED"];
-
   const piedataDoctor = async () => {
     try {
       const res = await axios.get("/api/v1/user/getPieData", {
@@ -46,18 +45,38 @@ const HomePage = () => {
         },
       });
       if (res.data.success) {
+        const pendingAppointments = res.data.data.find(
+          (data) => data._id === "PENDING"
+        );
+        const approvedAppointments = res.data.data.find(
+          (data) => data._id === "APPROVED"
+        );
+        const rejectedAppointments = res.data.data.find(
+          (data) => data._id === "REJECTED"
+        );
+
         setPieData(res.data.data);
+
         const userData = {
           datasets: [
             {
-              data: res.data.data.map((data) => data.len),
-              backgroundColor: ["rgba(75,192,192,1)", "#ecf0f1"],
+              data: [
+                pendingAppointments ? pendingAppointments.len : 0,
+                approvedAppointments ? approvedAppointments.len : 0,
+                rejectedAppointments ? rejectedAppointments.len : 0,
+              ],
+              backgroundColor: [
+                "rgba(75,192,192,1)",
+                "#ecf0f1",
+                blueGrey[500], // Use blueGrey[500] for rejected appointments
+              ],
               borderColor: "black",
               borderWidth: 1,
             },
           ],
-          labels: res.data.data.map((data) => data._id),
+          labels: ["PENDING", "APPROVED", "REJECTED"], // Add "REJECTED" label
         };
+
         setUserData(userData);
         console.log(res.data, "COMING");
       }
@@ -137,6 +156,7 @@ const HomePage = () => {
               placeItems: "center",
             }}
           >
+            <h1 style={{ color: "white" }}>APPOINTMENTS</h1>
             {userData && (
               <div style={{ width: 300 }}>
                 <PieChart chartData={userData} />
