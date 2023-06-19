@@ -79,10 +79,10 @@ const Layout = ({ children }) => {
                     navigate("/notification");
                   }}
                 >
-                  <i class="fa-solid fa-bell"></i>
+                  <i  style={{color:"white"}} class="fa-solid fa-bell"></i>
                 </Badge>
 
-                <Link to={"/doctor/profile/"+user?._id}>{user?.name}</Link>
+                <Link  style={{color:"white"}} to={"/doctor/profile/"+user?._id}>{user?.name}</Link>
               </div>
             </div>
             <div className="body">{children}</div>

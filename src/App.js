@@ -4,7 +4,6 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import { useSelector } from "react-redux";
 import Spinner from "./components/Spinner";
-import Videocall from "./components/Videocall";
 import ProtectedRoute from "./components/ProtectedRoute";
 import PublicRoute from "./components/PublicRoute";
 import ApplyDoctor from "./pages/ApplyDoctor";
@@ -15,7 +14,12 @@ import Profile from "./pages/doctor/Profile";
 import BookingPage from "./pages/BookingPage";
 import Appointments from "./pages/Appointments";
 import DoctorAppointments from "./pages/doctor/DoctorAppointments";
-
+import DRegister from "./pages/doctor/DRegister";
+import {DApplyDoctor} from "./pages/doctor/DApplyDoctor";
+import DLogin from "./pages/doctor/DLogin";
+import DPublicRoute from "./pages/doctor/DPublicRoute";
+import DProtectedRoute from "./pages/doctor/DProtectedRoute";
+import DMessage from "./pages/doctor/DMessage";
 function App() {
   const { loading } = useSelector((state) => state.alerts);
   return (
@@ -26,7 +30,7 @@ function App() {
         ) : (
           <Routes>
             <Route
-              path="/apply-doctor"
+              exact path="/apply-doctor"
               element={
                 <ProtectedRoute>
                   <ApplyDoctor />
@@ -34,7 +38,7 @@ function App() {
               }
             />
             <Route
-              path="/admin/users"
+              exact path="/admin/users"
               element={
                 <ProtectedRoute>
                   <Users />
@@ -42,7 +46,7 @@ function App() {
               }
             />
             <Route
-              path="/admin/doctors"
+              exact path="/admin/doctors"
               element={
                 <ProtectedRoute>
                   <Doctors />
@@ -50,7 +54,15 @@ function App() {
               }
             />
             <Route
-              path="/doctor/profile/:id"
+              exact path="/DRegister"
+              element={
+                <PublicRoute>
+                  <DRegister />
+                </PublicRoute>
+              }
+            />
+            <Route
+              exact path="/doctor/profile/:id"
               element={
                 <ProtectedRoute>
                   <Profile />
@@ -58,7 +70,7 @@ function App() {
               }
             />
             <Route
-              path="/doctor/book-appointment/:doctorId"
+              exact path="/doctor/book-appointment/:doctorId"
               element={
                 <ProtectedRoute>
                   <BookingPage />
@@ -66,7 +78,7 @@ function App() {
               }
             />
             <Route
-              path="/notification"
+              exact path="/notification"
               element={
                 <ProtectedRoute>
                   <NotificationPage />
@@ -74,7 +86,7 @@ function App() {
               }
             />
             <Route
-              path="/login"
+              exact path="/login"
               element={
                 <PublicRoute>
                   <Login />
@@ -82,7 +94,7 @@ function App() {
               }
             />
             <Route
-              path="/register"
+              exact path="/register"
               element={
                 <PublicRoute>
                   <Register />
@@ -90,7 +102,7 @@ function App() {
               }
             />
             <Route
-              path="/appointments"
+              exact path="/appointments"
               element={
                 <ProtectedRoute>
                   <Appointments />
@@ -98,7 +110,7 @@ function App() {
               }
             />
             <Route
-              path="/doctor-appointments"
+              exact path="/doctor-appointments"
               element={
                 <ProtectedRoute>
                   <DoctorAppointments />
@@ -106,7 +118,31 @@ function App() {
               }
             />
             <Route
-              path="/"
+              exact path="/DApplyDoctor"
+              element={
+                <DProtectedRoute>
+                  <DApplyDoctor/>
+                </DProtectedRoute>
+              }
+            />
+             <Route
+              exact path="/DLogin"
+              element={
+                <DPublicRoute>
+                  <DLogin/>
+                </DPublicRoute>
+              }
+            />
+             <Route
+              exact path="/DMessage"
+              element={
+                <DProtectedRoute>
+                  <DMessage/>
+                </DProtectedRoute>
+              }
+            />
+            <Route
+              exact path="/"
               element={
                 <ProtectedRoute>
                   <HomePage />

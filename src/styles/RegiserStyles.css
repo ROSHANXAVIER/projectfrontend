@@ -17,6 +17,12 @@
   width:120vh;
   height:100vh;
 }
+
+.dimg img{
+  float:right;
+  width:55vw;
+  height:100vh;
+} 
 .text-center{
   color: rgb(0, 0, 0);
   font-family:sans-serif;

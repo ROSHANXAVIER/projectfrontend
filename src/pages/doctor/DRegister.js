@@ -1,12 +1,11 @@
 import React from "react";
-import "../styles/RegiserStyles.css";
+import "../../styles/RegiserStyles.css";
 import { Form, Input, message } from "antd";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { showLoading, hideLoading } from "../redux/features/alertSlice";
-import DRegister from "./doctor/DRegister";
-const Register = () => {
+import { showLoading, hideLoading } from "../../redux/features/alertSlice";
+const DRegister = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   //form handler
@@ -17,7 +16,7 @@ const Register = () => {
       dispatch(hideLoading());
       if (res.data.success) {
         message.success("Register Successfully!");
-        navigate("/login");
+        navigate("/DLogin");
       } else {
         message.error(res.data.message);
       }
@@ -27,11 +26,14 @@ const Register = () => {
       message.error("Something Went Wrong");
     }
   };
+  const go=()=>{
+    navigate("/Register");
+  }
   return (
     <>
     <div className="form-container ">
-    <div className="img">
-         <img src="register.jpg"></img>
+    <div className="dimg">
+         <img src="https://img.freepik.com/premium-vector/health-care-program-metaphor-online-medicine-medical-insurance-hospital-services-preventive-check-up_566886-2769.jpg?w=2000"></img>
     </div>
       <div className="form-container">
         <Form
@@ -39,7 +41,7 @@ const Register = () => {
           onFinish={onfinishHandler}
           className="register-form"
         >
-          <h3 className="text-center">Registration Form</h3>
+          <h3 className="text-center">Doctor Registration Form</h3>
           <Form.Item label="Name" name="name">
             <Input type="text" placeholder="Enter name" required />
           </Form.Item>
@@ -52,14 +54,7 @@ const Register = () => {
           <button className="btn" type="submit">
             Register
           </button>
-          <Link to="/login" className="link">
-            Already a user? Login here.
-          </Link>
-          <br></br>
-          <br></br>
-          <Link to="/DRegister" >
-            Are you a doctor?
-          </Link>
+          <button className="btn" onClick={go}>Go Back</button>
           </Form>
       </div>
       </div>
@@ -67,4 +62,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default DRegister;
