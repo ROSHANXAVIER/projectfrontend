@@ -117,6 +117,9 @@ const BookingPage = () => {
       if (res.data.success) {
         message.success(res.data.message);
       }
+      else{
+        message.error(res.data.message);
+      }
     } catch (error) {
       dispatch(hideLoading());
       console.log(error);
@@ -266,7 +269,7 @@ const BookingPage = () => {
                       try {
                         const res = await axios.post(
                           "/api/v1/user/slot-availability",
-                          { doctorId: params.doctorId, dae },
+                          { doctorId: params.doctorId,userId:user._id, dae },
                           {
                             headers: {
                               Authorization: `Bearer ${localStorage.getItem(
