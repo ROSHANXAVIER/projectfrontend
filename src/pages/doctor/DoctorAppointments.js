@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Layout from "./../../components/Layout";
-import {VideoCameraOutlined} from '@ant-design/icons';
+import { VideoCameraOutlined } from '@ant-design/icons';
 import axios from "axios";
 import moment from "moment";
-import { message, Table ,Modal,Button} from "antd";
+import { message, Table, Modal, Button } from "antd";
 import { faVideoSlash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
@@ -24,17 +24,7 @@ const DoctorAppointments = () => {
       console.log(error);
     }
   };
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
-  const handleOk = () => {
-    setIsModalOpen(false);
-  };
+
   useEffect(() => {
     getAppointments();
   }, []);
@@ -60,6 +50,37 @@ const DoctorAppointments = () => {
     }
   };
 
+  const AppointmentModal = ({ record }) => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const showModal = () => {
+      setIsModalOpen(true);
+    };
+
+    const handleCancel = () => {
+      setIsModalOpen(false);
+    };
+
+    const handleOk = () => {
+      setIsModalOpen(false);
+    };
+
+    return (
+      <div>
+        <Button type="primary" onClick={showModal}>
+          Details
+        </Button>
+        <Modal title="Patient Details" visible={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+          <p>Name: {record.name}</p>
+          <p>Age: {record.age}</p>
+          <p>Gender: {record.gender}</p>
+          <p>BloodGroup: {record.bloodgroup}</p>
+          <p>Symptoms: {record.illness}</p>
+        </Modal>
+      </div>
+    );
+  };
+
   const columns = [
     {
       title: "ID",
@@ -71,7 +92,7 @@ const DoctorAppointments = () => {
       render: (text, record) => (
         <span>
           {moment(record.date).format("DD-MM-YYYY")} &nbsp;
-          {moment(record.time).format("HH:mm")}
+          {record.doctorInfo}
         </span>
       ),
     },
@@ -80,22 +101,9 @@ const DoctorAppointments = () => {
       dataIndex: "status",
     },
     {
-      title:"Patient Details",
-      dataIndex:"date",
-      render:(text,record)=>(
-        <div>
-            <Button type="primary" onClick={showModal}>
-        Details
-      </Button>
-      <Modal title="Patient Details" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-        <p>Name: {record.name}</p>
-        <p>Age: {record.age}</p>
-        <p>Gender: {record.gender}</p>
-        <p>BloodGroup: {record.bloodgroup}</p>
-        <p>Symptoms: {record.illness}</p>
-      </Modal>
-      </div>
-      ),
+      title: "Patient Details",
+      dataIndex: "i",
+      render: (text, record) => <AppointmentModal record={record} />,
     },
     {
       title: "Conference",
@@ -118,24 +126,21 @@ const DoctorAppointments = () => {
               </button>
             </div>
           )}
-          {
-            record.status==="approved" && (
-              <span>
-                <VideoCameraOutlined style={{ fontSize: '30px', color: 'red',paddingLeft:'20px' }}/>
-              </span>
-            )
-          }
-           {record.status === "reject" && (
-          <span>
-          <FontAwesomeIcon icon={faVideoSlash} style={{ fontSize: '30px', color: 'red',paddingLeft:'20px' }}/>
-        </span>
-       
-        )}
-          
+          {record.status === "approved" && (
+            <span>
+              <VideoCameraOutlined style={{ fontSize: '30px', color: 'red', paddingLeft: '20px' }} />
+            </span>
+          )}
+          {record.status === "reject" && (
+            <span>
+              <FontAwesomeIcon icon={faVideoSlash} style={{ fontSize: '30px', color: 'red', paddingLeft: '20px' }} />
+            </span>
+          )}
         </div>
       ),
     },
   ];
+
   return (
     <Layout>
       <h1>Appoinmtnets Lists</h1>

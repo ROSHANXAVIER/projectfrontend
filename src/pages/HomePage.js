@@ -6,6 +6,7 @@ import DoctorList from "../components/DoctorList";
 import { useSelector } from "react-redux";
 import PieChart from "../components/PieChart";
 import { blueGrey } from "@mui/material/colors";
+import { Bar } from "react-chartjs-2";
 
 const { Option } = Select;
 
@@ -14,7 +15,8 @@ const HomePage = () => {
   const { user } = useSelector((state) => state.user);
   const [pieData, setPieData] = useState([]);
   const [selectedSpecialization, setSelectedSpecialization] = useState("");
-
+  const [userData, setUserData] = useState(null);
+  const [patient,setPatientData]=useState([]);
   const getUserData = async () => {
     try {
       const res = await axios.get("/api/v1/user/getAllDoctors", {
@@ -23,7 +25,8 @@ const HomePage = () => {
         },
       });
       if (res.data.success) {
-        setDoctors(res.data.data);
+        setDoctors(res.data.data.doctors);
+        setPatientData(res.data.data.patients);
       }
     } catch (error) {
       console.log(error);
@@ -85,10 +88,22 @@ const HomePage = () => {
     }
   };
 
-  const [userData, setUserData] = useState(null);
-
   const handleSpecializationChange = (value) => {
     setSelectedSpecialization(value);
+  };
+
+  // Chart data for the number of doctors and patients
+  const doctorPatientData = {
+    labels: ["Doctors", "Patients"],
+    datasets: [
+      {
+        label: "Number of Doctors and Patients",
+        data: [doctors.length, patient.length],
+        backgroundColor: ["rgba(75,192,192,1)", "#ecf0f1"],
+        borderColor: "black",
+        borderWidth: 1,
+      },
+    ],
   };
 
   return (
@@ -137,11 +152,38 @@ const HomePage = () => {
               placeItems: "center",
             }}
           >
-            {userData && (
-              <div style={{ width: 300 }}>
-                <PieChart chartData={userData} />
-              </div>
-            )}
+            <h2 style={{color:"white"}}>USERS</h2>
+            <div style={{ marginTop: "20px", width: "400px" }}>
+              <Bar
+                data={doctorPatientData}
+                options={{
+                  scales: {
+                    y: {
+                      beginAtZero: true,
+                      grid: {
+                        display: false,
+                      },
+                      ticks: {
+                        color: "white", // Color of the y-axis labels
+                      },
+                    },
+                    x: {
+                      grid: {
+                        color: "rgba(255, 255, 255, 0.2)", // Color of the horizontal grid lines
+                      },
+                      ticks: {
+                        color: "white", // Color of the x-axis labels
+                      },
+                    },
+                  },
+                  plugins: {
+                    legend: {
+                      display: false,
+                    },
+                  },
+                }}
+              />
+            </div>
           </div>
         </Layout>
       )}
