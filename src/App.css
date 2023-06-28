@@ -10,7 +10,24 @@
 	display: grid;
 	grid-template-columns: 7fr 3fr;
 }
-
+.feedback {
+	margin-top: 10px;
+  }
+  
+  .feedback p {
+	margin-bottom: 5px;
+  }
+  
+  .feedback .feedback-icon {
+	font-size: 20px;
+	margin-right: 10px;
+	cursor: pointer;
+	transition: color 0.3s;
+  }
+  
+  .feedback .feedback-icon:hover {
+	color: #007bff; /* Add your desired color */
+  }
 .myId {
 	margin-right: 5rem;
 	border-radius: 5px;

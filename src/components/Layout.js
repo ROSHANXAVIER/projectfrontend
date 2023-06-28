@@ -81,8 +81,7 @@ const Layout = ({ children }) => {
                 >
                   <i  style={{color:"white"}} class="fa-solid fa-bell"></i>
                 </Badge>
-
-                <Link  style={{color:"white"}} to={"/doctor/profile/"+user?._id}>{user?.name}</Link>
+                <Link  style={{color:"white",paddingLeft:"20px"}} to={"/doctor/profile/"+user?._id}>{user?.name}</Link>
               </div>
             </div>
             <div className="body">{children}</div>

@@ -5,7 +5,7 @@ import { message, Table } from "antd";
 
 const Doctors = () => {
   const [doctors, setDoctors] = useState([]);
-  //getUsers
+
   const getDoctors = async () => {
     try {
       const res = await axios.get("/api/v1/admin/getAllDoctors", {
@@ -20,12 +20,13 @@ const Doctors = () => {
       console.log(error);
     }
   };
-  const removeDoctor=async(record)=>{
-    try{
+
+  const removeDoctor = async (record) => {
+    try {
       console.log(record);
       const res = await axios.post(
         "/api/v1/admin/removeDoctor",
-        { doctorId: record._id},
+        { doctorId: record._id },
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -36,11 +37,11 @@ const Doctors = () => {
         message.success(res.data.message);
         window.location.reload();
       }
-    }catch(e){
+    } catch (e) {
       console.log(e);
     }
-  }
-  // handle account
+  };
+
   const handleAccountStatus = async (record, status) => {
     try {
       const res = await axios.post(
@@ -80,8 +81,17 @@ const Doctors = () => {
       dataIndex: "status",
     },
     {
-      title: "phone",
+      title: "Phone",
       dataIndex: "phone",
+    },
+    {
+      title: "Dislikes",
+      dataIndex: "dislikes",
+      render: (text, record) => (
+        <span style={{ color: record.dislikes > 5 ? "red" : "inherit" }}>
+          {record.dislikes}
+        </span>
+      ),
     },
     {
       title: "Actions",
@@ -96,8 +106,9 @@ const Doctors = () => {
               Approve
             </button>
           ) : (
-            <button className="btn btn-danger"
-            onClick={()=>removeDoctor(record)}>Reject</button>
+            <button className="btn btn-danger" onClick={() => removeDoctor(record)}>
+              Reject
+            </button>
           )}
         </div>
       ),

@@ -17,6 +17,18 @@ const HomePage = () => {
   const [selectedSpecialization, setSelectedSpecialization] = useState("");
   const [userData, setUserData] = useState(null);
   const [patient,setPatientData]=useState([]);
+  const [feed,setFeed]=useState(" ");
+  const [peed,setPeed]=useState(" ");
+    const likesStyle = {
+    color: "#00bcd4",
+    marginRight: "0.5rem",
+  };
+
+  const dislikesStyle = {
+    color: "#f44336",
+    marginRight: "0.5rem",
+  };
+
   const getUserData = async () => {
     try {
       const res = await axios.get("/api/v1/user/getAllDoctors", {
@@ -33,11 +45,35 @@ const HomePage = () => {
     }
   };
 
+  const feeds = async () => {
+    try {
+      const res = await axios.post(
+        "/api/v1/user/feedGet",
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      
+      if (res.data.success) {
+        setFeed(res.data.data)
+      } else {
+        
+      }
+    } catch (error) {
+    
+      console.log(error);
+     
+    }
+  };
+
   console.log(user);
 
   useEffect(() => {
     getUserData();
     piedataDoctor();
+    feeds()
   }, []);
 
   const piedataDoctor = async () => {
@@ -59,7 +95,8 @@ const HomePage = () => {
         );
 
         setPieData(res.data.data);
-
+        setFeed(res.data.like);
+        setPeed(res.data.dislike);
         const userData = {
           datasets: [
             {
@@ -188,27 +225,48 @@ const HomePage = () => {
         </Layout>
       )}
 
-      {user?.isDoctor && (
-        <Layout>
-          <div
-            style={{
-              background: "rgb(30, 61, 77)",
-              height: "100%",
-              display: "grid",
-              placeItems: "center",
-            }}
-          >
-            <h1 style={{ color: "white" }}>APPOINTMENTS</h1>
-            {userData && (
-              <div style={{ width: 300 }}>
-                <PieChart chartData={userData} />
-              </div>
-            )}
-          </div>
-        </Layout>
-      )}
+{user?.isDoctor && (
+  <Layout>
+   <div
+  style={{
+    background: "rgb(30, 61, 77)",
+    height: "100%",
+    display: "grid",
+    placeItems: "center",
+    gridTemplateColumns: "1fr 1fr",
+    gap: "2rem",
+    padding: "2rem",
+    borderRadius: "10px",
+  }}
+>
+  <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+    <h1 style={{ color: "white", marginBottom: "1rem" }}>APPOINTMENTS</h1>
+    {userData && (
+      <div style={{ width: "100%", maxWidth: "300px" }}>
+        <PieChart chartData={userData} />
+      </div>
+    )}
+  </div>
+  <div style={{ color: "white", display: "flex", flexDirection: "column", alignItems: "center",marginBottom:"5px",paddingBottom:"155px" }}>
+    <h1 style={{ marginBottom: "5rem" ,color:"white"}}>RATINGS</h1>
+    <div style={{ display: "flex", alignItems: "center" }}>
+  <i className="fas fa-thumbs-up" style={{ marginRight: "0.5rem", fontSize: "1.5rem", color: likesStyle.color }}></i>
+  <span style={{ ...likesStyle, fontSize: "1.5rem", fontWeight: "bold" }}> {feed}</span>
+</div>
+<div style={{ display: "flex", alignItems: "center" }}>
+  <i className="fas fa-thumbs-down" style={{ marginRight: "0.5rem", fontSize: "1.5rem", color: dislikesStyle.color }}></i>
+  <span style={{ ...dislikesStyle, fontSize: "1.5rem", fontWeight: "bold" }}> {peed}</span>
+</div>
+
+  </div>
+</div>
+
+  </Layout>
+)}
+
     </div>
   );
 };
+
 
 export default HomePage;

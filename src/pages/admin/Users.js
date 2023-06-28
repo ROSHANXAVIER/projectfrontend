@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Layout from "./../../components/Layout";
 import axios from "axios";
-import { Table ,message} from "antd";
+import { Table, message } from "antd";
+
 const Users = () => {
   const [users, setUsers] = useState([]);
 
-  //getUsers
   const getUsers = async () => {
     try {
       const res = await axios.get("/api/v1/admin/getAllUsers", {
@@ -21,13 +21,11 @@ const Users = () => {
     }
   };
 
-  const removeUser=async(record)=>{
-    console.log(record);
-    try{
-      console.log(record);
+  const removeUser = async (record) => {
+    try {
       const res = await axios.post(
         "/api/v1/admin/removeUser",
-        { user: record._id},
+        { user: record._id },
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -35,20 +33,18 @@ const Users = () => {
         }
       );
       if (res.data.success) {
-        console.log(res.data.message);
         message.success("User removed");
         window.location.reload();
       }
-    }catch(e){
+    } catch (e) {
       console.log(e);
     }
-  }
+  };
 
   useEffect(() => {
     getUsers();
   }, []);
 
-  // antD table col
   const columns = [
     {
       title: "Name",
@@ -63,8 +59,14 @@ const Users = () => {
       dataIndex: "actions",
       render: (text, record) => (
         <div className="d-flex">
-          <button className="btn btn-danger" 
-          onClick={()=>{removeUser(record)}}>Remove</button>
+          <button
+            className="btn btn-danger"
+            onClick={() => {
+              removeUser(record);
+            }}
+          >
+            Remove
+          </button>
         </div>
       ),
     },
