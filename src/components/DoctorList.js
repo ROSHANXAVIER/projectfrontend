@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -11,9 +11,10 @@ import axios from "axios";
 
 
 const DoctorList = ({ doctor }) => {
-  const[feed,setFeed]=useState();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [feed,setFeed]=useState(0);
+  const [peed,setPeed]=useState(0);
   const handleLike = async(e) => {
     e.stopPropagation();
         message.success("LIKED")
@@ -29,6 +30,7 @@ const DoctorList = ({ doctor }) => {
           );
       
           if (response.data.success) {
+            setFeed((prevCounter) => prevCounter+1)
             console.log('Likes updated successfully');
             // Handle the success case here
           } else {
@@ -43,7 +45,7 @@ const DoctorList = ({ doctor }) => {
 
   const handleDislike = async(e) => {
     e.stopPropagation();
-    message.success("DISLIKED")
+    message.error("DISLIKED")
         console.log(doctor._id);
         try {
           const response = await axios.post('/api/v1/user/feed',
@@ -57,6 +59,7 @@ const DoctorList = ({ doctor }) => {
       
           if (response.data.success) {
             console.log('Dislikes updated successfully');
+            setPeed((prevCounter) => prevCounter+1)
             // Handle the success case here
           } else {
             console.log('Failed to update dislikes');
@@ -67,6 +70,30 @@ const DoctorList = ({ doctor }) => {
           // Handle the error case here
         }
   };
+  const Doctorfeed = async () => {
+    try {
+      const res = await axios.post("/api/v1/user/getFeed",{uid:doctor._id}, {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      });
+      if (res.data.success) {
+        
+        
+        setFeed(res.data.likes);
+        setPeed(res.data.dislikes);
+       
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+ 
+    Doctorfeed();
+    
+  }, []);
+
 
   return (
     <>
@@ -95,12 +122,12 @@ const DoctorList = ({ doctor }) => {
                 icon={faThumbsUp}
                 className="feedback-icon"
                 onClick={handleLike}
-              />
+              /><span>:{feed} </span><span style={{color:"white"}}>__</span>
               <FontAwesomeIcon
                 icon={faThumbsDown}
                 className="feedback-icon"
                 onClick={handleDislike}
-              />
+              /><span>:{peed}</span>
             </div>
           </div>
         </div>
