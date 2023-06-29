@@ -253,9 +253,9 @@ const BookingPage = () => {
         <div className="container m-2">
           {doctors && (
             <div className="doctor-details">
-              <h4>
+              <h3>
                 Dr. {doctors.firstName} {doctors.lastName}
-              </h4>
+              </h3>
               <div className="form-fields">
                 <DatePicker
                   aria-required={"true"}
@@ -295,7 +295,7 @@ const BookingPage = () => {
                     slotAvailability();
                   }}
                 />
-
+                <div className="info">
                 <div className="time-slots">
                   {timeSlots.map((slot) => (
                     <Button
@@ -320,7 +320,9 @@ const BookingPage = () => {
                     </Button>
                   ))}
                 </div>
-
+                 </div>
+                 <h6></h6>
+                 <h5>Enter your details:</h5>
                 <Grid container spacing={2}>
                   <Grid item xs={12} sm={6}>
                     <TextField
@@ -377,11 +379,10 @@ const BookingPage = () => {
                     />
                   </Grid>
                 </Grid>
-
+                <h6></h6>
                 <Button
                   variant="contained"
-                  color="primary"
-                  className="mt-2"
+                  className="b"
                   onClick={handleBooking}
                   disabled={isAvailable}
                 >

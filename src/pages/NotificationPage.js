@@ -67,13 +67,13 @@ const NotificationPage = () => {
   };
   return (
     <Layout>
-      <h4 className="p-3 text-center">Notification Page</h4>
+      <h3 className="p-3 text-center">Notification Page</h3>
       <Tabs>
-        <Tabs.TabPane tab="unRead" key={0}>
+        <Tabs.TabPane tab="New" key={0}>
           <div className="d-flex justify-content-end">
-            <h4 className="p-2" style={{ cursor: "pointer" }} onClick={handleMarkAllRead}>
-              Mark All Read
-            </h4>
+            <h5 className="p-2" style={{ cursor: "pointer" }} onClick={handleMarkAllRead}>
+              Mark As Read
+            </h5>
           </div>
           {user?.notifcation.map((notificationMgs) => (
             <div className="card" style={{ cursor: "pointer" }}>
@@ -88,13 +88,13 @@ const NotificationPage = () => {
         </Tabs.TabPane>
         <Tabs.TabPane tab="Read" key={1}>
           <div className="d-flex justify-content-end">
-            <h4
+            <h5
               className="p-2 text-primary"
               style={{ cursor: "pointer" }}
               onClick={handleDeleteAllRead}
             >
-              Delete All Read
-            </h4>
+              Delete All
+            </h5>
           </div>
           {user?.seennotification.map((notificationMgs) => (
             <div className="card" style={{ cursor: "pointer" }}>

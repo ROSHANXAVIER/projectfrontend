@@ -3,6 +3,8 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
+  background-color: rgb(30, 61, 77);
+  min-height: 100%;
 }
 
 .container {
@@ -29,7 +31,7 @@
 }
 
 .time-slots .selected {
-  background-color: #007bff;
+  background-color: #0a5161;
   color: #fff;
 }
 
@@ -50,9 +52,22 @@
 }
 
 .time-slots button {
-  margin: 5px;
+  margin: px;
   padding: 10px;
-  border-radius: 5px;
-  border: none;
+  border-radius: 0% ;
+  border-right: .3px solid rgb(212, 212, 212);
   cursor: pointer;
+  display: inline;
+  box-shadow: none;
+}
+
+.form-fields{
+  width: 600px;
+}
+.time-slots{
+  display: inline; 
+}
+
+.info{
+  width: 900px;
 }

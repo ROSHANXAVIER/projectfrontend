@@ -78,7 +78,7 @@ const Profile = () => {
       )}
       {doctor && (
         <div>
-        <h1>Manage Profile</h1>
+        <h2>Manage Profile</h2>
         <Form
           layout="vertical"
           onFinish={handleFinish}
@@ -169,7 +169,7 @@ const Profile = () => {
             </Col>
             <Col xs={24} md={24} lg={8}>
               <Form.Item
-                label="Fees Per Cunsaltation"
+                label="Fees Per Consultation"
                 name="feesPerCunsaltation"
                 required
                 rules={[{ required: true }]}

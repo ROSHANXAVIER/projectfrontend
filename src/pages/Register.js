@@ -39,7 +39,7 @@ const Register = () => {
           onFinish={onfinishHandler}
           className="register-form"
         >
-          <h3 className="text-center">Registration Form</h3>
+          <h3 className="text-center">Patient Registration Form</h3>
           <Form.Item label="Name" name="name">
             <Input type="text" placeholder="Enter name" required />
           </Form.Item>
