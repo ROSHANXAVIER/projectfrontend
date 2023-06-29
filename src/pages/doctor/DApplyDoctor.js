@@ -47,7 +47,7 @@ export const DApplyDoctor = () => {
   };
   return (
     <div>
-      <h1 className="text-center">Apply Doctor</h1>
+      <h2 className="text-center">Apply to be a Doctor</h2>
       <Form layout="vertical" onFinish={handleFinish} className="m-3">
         <h4 className="">Personal Details : </h4>
         <Row gutter={20}>
@@ -131,7 +131,7 @@ export const DApplyDoctor = () => {
           </Col>
           <Col xs={24} md={24} lg={8}>
             <Form.Item
-              label="Fees Per Cunsaltation"
+              label="Fees Per Consultation"
               name="feesPerCunsaltation"
               required
               rules={[{ required: true }]}

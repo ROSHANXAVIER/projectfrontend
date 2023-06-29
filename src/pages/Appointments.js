@@ -114,7 +114,7 @@ const Appointments = () => {
 
   return (
     <Layout>
-      <h1>Appointments Lists</h1>
+      <h2>Appointments Lists</h2>
       <Table columns={columns} dataSource={appointments} />
       <Modal
         title="Patient Details"
@@ -132,7 +132,7 @@ const Appointments = () => {
           </>
         )}
       </Modal>
-      <h1>Enter the call portal during your time slot.</h1>
+      <h5>Enter the call portal during your time slot.</h5>
     </Layout>
   );
 };
