@@ -20,6 +20,8 @@ import DLogin from "./pages/doctor/DLogin";
 import DPublicRoute from "./pages/doctor/DPublicRoute";
 import DProtectedRoute from "./pages/doctor/DProtectedRoute";
 import DMessage from "./pages/doctor/DMessage";
+import Videocall from "./components/Videocall";
+import Videocalluser from "./components/Videocalluser";
 function App() {
   const { loading } = useSelector((state) => state.alerts);
   return (
@@ -109,6 +111,22 @@ function App() {
                 </ProtectedRoute>
               }
             />
+             <Route
+              exact path="/Videocall/:appId"
+              element={
+                <ProtectedRoute>
+                  <Videocall/>
+                </ProtectedRoute>
+              }
+            />
+             <Route
+              exact path="/Videocalluser/:appId"
+              element={
+                <ProtectedRoute>
+                  <Videocalluser/>
+                </ProtectedRoute>
+              }
+            />
             <Route
               exact path="/doctor-appointments"
               element={
@@ -141,6 +159,7 @@ function App() {
                 </DProtectedRoute>
               }
             />
+
             <Route
               exact path="/"
               element={

@@ -6,10 +6,10 @@ import moment from "moment";
 import { message, Table, Modal, Button } from "antd";
 import { faVideoSlash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-
+import { useNavigate } from "react-router-dom";
 const DoctorAppointments = () => {
   const [appointments, setAppointments] = useState([]);
-
+  const navigate=useNavigate();
   const getAppointments = async () => {
     try {
       const res = await axios.get("/api/v1/doctor/doctor-appointments", {
@@ -128,7 +128,9 @@ const DoctorAppointments = () => {
           )}
           {record.status === "approved" && (
             <span>
-              <VideoCameraOutlined style={{ fontSize: '30px', color: 'red', paddingLeft: '20px' }} />
+              <VideoCameraOutlined onClick={() => {
+                  navigate(`/Videocall/${record._id}`);
+                }} style={{ fontSize: '30px', color: 'red', paddingLeft: '20px' }} />
             </span>
           )}
           {record.status === "reject" && (

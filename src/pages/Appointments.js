@@ -97,7 +97,7 @@ const Appointments = () => {
             <span>
               <VideoCameraOutlined
                 onClick={() => {
-                  navigate('/Videocall');
+                  navigate(`/Videocalluser/${record._id}`);
                 }}
                 style={{ fontSize: '30px', color: 'red', paddingLeft: '20px', cursor: 'pointer' }}
               />
