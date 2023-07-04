@@ -27,7 +27,7 @@ const Videocall = () => {
   const handleSendLink = async () => {
     try {
       // Make an API call to send the link
-      dispatch(showLoading());
+     
       const res = await axios.post(
         "/api/v1/doctor/setGmeet",
         { link: link, appId: params.appId },
@@ -39,7 +39,7 @@ const Videocall = () => {
       );
       // Perform any necessary actions after sending the link
       if (res.data.success) {
-        dispatch(hideLoading());
+        
         console.log("Link sent successfully");
         message.success(res.data.message);
       }

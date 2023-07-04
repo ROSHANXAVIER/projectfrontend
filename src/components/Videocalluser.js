@@ -17,7 +17,8 @@ const Videocalluser = () => {
   const params = useParams();
   const navigate = useNavigate();
   const [link, setLink] = useState("You will get your link soon...");
-
+  const [isLinkAvailable, setIsLinkAvailable] = useState(false);
+  const [but,setBut]=useState("WAIT..")
   const getlink = async () => {
     try {
       const res = await axios.post(
@@ -29,8 +30,10 @@ const Videocalluser = () => {
           },
         }
       );
-      if (res.data.success) {
+      if (res.data.success && res.data.data !== "You will get your link soon...") {
         setLink(res.data.data);
+        setIsLinkAvailable(true);
+        setBut("OPEN LINK");
       }
     } catch (error) {
       console.log(error);
@@ -57,14 +60,14 @@ const Videocalluser = () => {
   }, []);
 
   return (
-    <div className="root">
+    <div className={`root ${isLinkAvailable ? "active" : ""}`}>
       <div className="return-button" onClick={handleReturn}>
         Return
       </div>
       <Typography variant="h1" className="heading">
         Video Call
       </Typography>
-      <Box className="box">
+      <Box className={`box ${isLinkAvailable ? "active" : ""}`}>
         <VideocamIcon className="icon" />
         <TextField
           label="Link"
@@ -74,8 +77,12 @@ const Videocalluser = () => {
           onChange={(e) => setLink(e.target.value)}
         />
         <br />
-        <Button variant="contained" className="button" onClick={handleOpenLink}>
-          Open Link
+        <Button
+          variant="contained"
+          className={`button ${isLinkAvailable ? "active" : ""}`}
+          onClick={handleOpenLink}
+        >
+          {but}
         </Button>
       </Box>
     </div>
