@@ -21,6 +21,7 @@
     "chart.js": "^4.3.0",
     "dayjs": "^1.11.7",
     "font-awesome": "^4.7.0",
+    "framer-motion": "^10.12.18",
     "moment": "^2.29.4",
     "react": "^18.2.0",
     "react-big-calendar": "^1.8.1",
