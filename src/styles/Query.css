@@ -1,0 +1,51 @@
+.cards-page {
+    background-color: #ecf0f1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+  }
+  
+  .page-heading {
+    color: #2980b9;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .card {
+    background-color: #f7f9f9;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+    width: 300px;
+  }
+  
+  .card-content {
+    padding: 20px;
+  }
+  
+  .name-box {
+    background-color: #3498db;
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+  
+  .complaint-box {
+    background-color: #ecf0f1;
+    color: #555;
+    font-size: 14px;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  

@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import PieChart from "../components/PieChart";
 import { blueGrey } from "@mui/material/colors";
 import { Bar } from "react-chartjs-2";
-
+import { motion } from "framer-motion";
 const { Option } = Select;
 
 const HomePage = () => {
@@ -147,11 +147,28 @@ const HomePage = () => {
     <div>
       {!user?.isAdmin && !user?.isDoctor && (
         <Layout>
+           <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            style={{ background: "rgb(30, 61, 77)", height: "100%" }}
+          >
           <div style={{ background: "rgb(30, 61, 77)", height: "100%" }}>
-            <h1 style={{ color: "white" }} className="text-center">
+          <motion.h1
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              style={{ color: "white" }}
+              className="text-center"
+            >
               Choose Doctor
-            </h1>
-            <div className="text-center mt-4">
+            </motion.h1>
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="text-center mt-4"
+            >
               <Select
                 style={{ width: 200 }}
                 placeholder="Select Specialization"
@@ -164,7 +181,12 @@ const HomePage = () => {
                 <Option value="Orthopedics">Orthopedics</Option>
                 {/* Add more options for other specializations */}
               </Select>
-            </div>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+            >
             <Row>
               {doctors &&
                 doctors
@@ -175,7 +197,9 @@ const HomePage = () => {
                   )
                   .map((doctor) => <DoctorList doctor={doctor} />)}
             </Row>
+            </motion.div>
           </div>
+          </motion.div>
         </Layout>
       )}
 

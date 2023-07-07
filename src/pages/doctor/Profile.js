@@ -130,8 +130,8 @@ const Profile = () => {
               </Form.Item>
             </Col>
             <Col xs={24} md={24} lg={8}>
-              <Form.Item label="Website" name="website">
-                <Input type="text" placeholder="your website" />
+              <Form.Item label="UPI ID" name="website">
+                <Input type="text" placeholder="UPI ID" />
               </Form.Item>
             </Col>
             <Col xs={24} md={24} lg={8}>

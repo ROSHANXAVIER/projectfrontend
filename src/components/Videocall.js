@@ -21,7 +21,7 @@ const Videocall = () => {
   const navigate = useNavigate();
   const [link, setLink] = useState("");
   const handleReturn = () => {
-    navigate("/appointments");
+    navigate("/doctor-appointments");
   };
 
   const handleSendLink = async () => {

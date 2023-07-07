@@ -22,6 +22,8 @@ import DProtectedRoute from "./pages/doctor/DProtectedRoute";
 import DMessage from "./pages/doctor/DMessage";
 import Videocall from "./components/Videocall";
 import Videocalluser from "./components/Videocalluser";
+import Contactus from "./components/Contactus";
+import Query from "./pages/admin/Query";
 function App() {
   const { loading } = useSelector((state) => state.alerts);
   return (
@@ -68,6 +70,14 @@ function App() {
               element={
                 <ProtectedRoute>
                   <Profile />
+                </ProtectedRoute>
+              }
+            />
+             <Route
+              exact path="/admin/query"
+              element={
+                <ProtectedRoute>
+                  <Query/>
                 </ProtectedRoute>
               }
             />
@@ -124,6 +134,22 @@ function App() {
               element={
                 <ProtectedRoute>
                   <Videocalluser/>
+                </ProtectedRoute>
+              }
+            />
+             <Route
+              exact path="/Contactus"
+              element={
+                <ProtectedRoute>
+                  <Contactus/>
+                </ProtectedRoute>
+              }
+            />
+              <Route
+              exact path="/Contactus"
+              element={
+                <ProtectedRoute>
+                  <Contactus/>
                 </ProtectedRoute>
               }
             />

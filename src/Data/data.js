@@ -10,9 +10,9 @@ export const userMenu = [
     icon: "fa-solid fa-list",
   },
   {
-    name: "Apply Doctor",
-    path: "/apply-doctor",
-    icon: "fa-solid fa-user-doctor",
+    name: "Contact Us",
+    path: "/Contactus",
+    icon: "fa-solid fa-phone",
   },
 ];
 
@@ -33,6 +33,11 @@ export const adminMenu = [
     name: "Users",
     path: "/admin/users",
     icon: "fa-solid fa-user",
+  },
+  {
+    name: "Complaints",
+    path: "/admin/Query",
+    icon: "fa-solid fa-exclamation-circle",
   },
  
 ];
