@@ -99,3 +99,9 @@
   background-color: transparent;
   display: inline;
 }
+.logos{
+  height: 13vh;
+  border-radius: 20px;
+  margin-left: 10vw;
+  margin-right: 10vw;
+}

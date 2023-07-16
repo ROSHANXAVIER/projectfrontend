@@ -1,0 +1,68 @@
+
+/* NotificationPage.css */
+
+/* Styling for the card container */
+.card {
+    border: 1px solid lightgray;
+    border-radius: 4px;
+    padding: 12px;
+    margin-bottom: 16px;
+    background-color: #f5f5f5;
+    transition: background-color 0.3s ease;
+  }
+  
+  .card:hover {
+    background-color: #e1e1e1;
+  }
+  
+  /* Styling for the card text */
+  .card-text {
+    color: #333;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  /* Styling for the "Mark As Read" and "Delete All" buttons */
+  .d-flex {
+    align-items: center;
+  }
+  
+  .p-2 {
+    margin-right: 8px;
+    color: #1890ff;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .text-primary {
+    color: #1890ff;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  /* Styling for the Tabs component */
+  .ant-tabs {
+    margin-top: 16px;
+    background-color: #fff;
+  }
+  
+  .ant-tabs-nav {
+    background-color: #f0f0f0;
+    border-bottom: 1px solid #e8e8e8;
+  }
+  
+  .ant-tabs-tab {
+    color: #333;
+  }
+  
+  .ant-tabs-tab-active {
+    font-weight: bold;
+  }
+  
+  /* Styling for the NotificationPage title */
+  .text-center {
+    margin-top: 16px;
+    color: #333;
+    font-size: 24px;
+  }
+  

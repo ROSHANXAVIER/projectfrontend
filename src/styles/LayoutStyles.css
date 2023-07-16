@@ -5,9 +5,19 @@
 .layout {
   display: flex;
 }
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+
+.logo-text {
+  font-family: 'Roboto', sans-serif;
+  font-size: 24px;
+  font-weight: bold;
+  color: #ffffff;
+  /* Add any additional styles you want */
+}
+
 
 .sidebar {
-  height: 95.6vh;
+  height: 97vh;
   width: 300px;
   border-radius: 5px;
   background-color: rgb(30, 61, 77);
@@ -43,6 +53,11 @@
 }
 .menu-item {
   margin-top: 30px;
+}
+
+.logo{
+  height: 13vh;
+  border-radius: 20px;
 }
 .menu-item a {
   color: white;

@@ -35,12 +35,14 @@ const Login = () => {
          <img src="Roshan.jpg"></img>
     </div>
     <div className="form-container-login ">
+      
       <Form
         layout="vertical"
         onFinish={onfinishHandler}
         className="login-form"
       >
-        <h3 className="text-center">Login Form</h3>
+        <img className="logos" src="LOGO.jpg"></img>
+        <h3 className="text-center">Login</h3>
 
         <Form.Item label="Email" name="email">
           <Input type="email" required />

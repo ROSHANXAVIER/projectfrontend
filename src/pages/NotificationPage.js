@@ -5,13 +5,16 @@ import { useSelector, useDispatch } from "react-redux";
 import { showLoading, hideLoading } from "../redux/features/alertSlice";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import "../styles/Notification.css"; // Import your custom CSS file for styling
 
 const NotificationPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.user);
-  //   handle read notification
+
   const handleMarkAllRead = async () => {
+    // Handle mark all read functionality
+    // ...
     try {
       console.log(user,'user');
       dispatch(showLoading());
@@ -40,8 +43,9 @@ const NotificationPage = () => {
     }
   };
 
-  // delete notifications
   const handleDeleteAllRead = async () => {
+    // Handle delete all read functionality
+    // ...
     try {
       dispatch(showLoading());
       const res = await axios.post(
@@ -65,9 +69,9 @@ const NotificationPage = () => {
       message.error("Somthing Went Wrong In Ntifications");
     }
   };
+
   return (
     <Layout>
-      <h3 className="p-3 text-center">Notification Page</h3>
       <Tabs>
         <Tabs.TabPane tab="New" key={0}>
           <div className="d-flex justify-content-end">
@@ -76,11 +80,8 @@ const NotificationPage = () => {
             </h5>
           </div>
           {user?.notifcation.map((notificationMgs) => (
-            <div className="card" style={{ cursor: "pointer" }}>
-              <div
-                className="card-text"
-                onClick={() => navigate(notificationMgs.onClickPath)}
-              >
+            <div className="card" style={{ cursor: "pointer" }} onClick={() => navigate(notificationMgs.onClickPath)}>
+              <div className="card-text">
                 {notificationMgs.message}
               </div>
             </div>
@@ -88,20 +89,13 @@ const NotificationPage = () => {
         </Tabs.TabPane>
         <Tabs.TabPane tab="Read" key={1}>
           <div className="d-flex justify-content-end">
-            <h5
-              className="p-2 text-primary"
-              style={{ cursor: "pointer" }}
-              onClick={handleDeleteAllRead}
-            >
+            <h5 className="p-2 text-primary" style={{ cursor: "pointer" }} onClick={handleDeleteAllRead}>
               Delete All
             </h5>
           </div>
           {user?.seennotification.map((notificationMgs) => (
-            <div className="card" style={{ cursor: "pointer" }}>
-              <div
-                className="card-text"
-                onClick={() => navigate(notificationMgs.onClickPath)}
-              >
+            <div className="card" style={{ cursor: "pointer" }} onClick={() => navigate(notificationMgs.onClickPath)}>
+              <div className="card-text">
                 {notificationMgs.message}
               </div>
             </div>
