@@ -3,10 +3,10 @@
   margin: 0 auto;
   padding: 20px;
   background-color: rgb(30, 61, 77);
-  min-height: 100%;
+  min-height: 56vh;
 }
 
-.container {
+.container{
   background-color: #d3d8de;
   padding: 20px;
   border-radius: 8px;
@@ -48,6 +48,7 @@
 .booked{
   color: red;
   cursor:none;
+  height: 5.4px;
 }
 
 .time-slots button {

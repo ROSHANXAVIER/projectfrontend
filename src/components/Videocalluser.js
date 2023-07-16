@@ -71,10 +71,16 @@ const Videocalluser = () => {
       <div className="return-button" onClick={handleReturn}>
         Return
       </div>
-      <Typography variant="h1" className="heading">
+      
+      <motion.div
+        className={`box ${isLinkAvailable ? "active" : ""}`}
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: -150 }}
+        transition={{ duration: 0.8 }}
+      >
+         <Typography variant="h2" className="heading">
         Video Call
       </Typography>
-     
         <VideocamIcon className="icon" />
         <TextField
           label="Link"
@@ -91,9 +97,14 @@ const Videocalluser = () => {
         >
           {but}
         </Button>
- 
+      </motion.div>
       
-    
+      <motion.div
+        className={`upi-box ${isLinkAvailable ? "active" : ""}`}
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: -130 }}
+        transition={{ duration: 0.8, delay: 0.3 }}
+      >
         <Typography variant="h2" className="upi-heading">
           UPI ID
         </Typography>
@@ -109,7 +120,7 @@ const Videocalluser = () => {
             Copy
           </Button>
         </div>
-   
+      </motion.div>
     </div>
   );
 };
