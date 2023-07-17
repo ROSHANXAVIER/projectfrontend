@@ -7,9 +7,12 @@ import { message, Table, Modal, Button } from "antd";
 import { faVideoSlash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useNavigate } from "react-router-dom";
+
 const DoctorAppointments = () => {
   const [appointments, setAppointments] = useState([]);
-  const navigate=useNavigate();
+  const [filteredAppointments, setFilteredAppointments] = useState([]);
+  const navigate = useNavigate();
+
   const getAppointments = async () => {
     try {
       const res = await axios.get("/api/v1/doctor/doctor-appointments", {
@@ -19,6 +22,7 @@ const DoctorAppointments = () => {
       });
       if (res.data.success) {
         setAppointments(res.data.data);
+        setFilteredAppointments(res.data.data);
       }
     } catch (error) {
       console.log(error);
@@ -28,6 +32,21 @@ const DoctorAppointments = () => {
   useEffect(() => {
     getAppointments();
   }, []);
+
+  const handleFilterAppointments = () => {
+    const today = new Date();
+    const options = {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    };
+    const dateString = today.toLocaleDateString("en-US", options);
+    const date = dateString;
+const parts = date.split("/");
+const rearrangedDate = `${parts[1]}-${parts[0]}-${parts[2]}`;
+    const filtered = appointments.filter(appointment => appointment.date === rearrangedDate);
+    setFilteredAppointments(filtered);
+  };
 
   const handleStatus = async (record, status) => {
     try {
@@ -49,7 +68,6 @@ const DoctorAppointments = () => {
       message.error("Something Went Wrong");
     }
   };
-
   const AppointmentModal = ({ record }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -91,7 +109,8 @@ const DoctorAppointments = () => {
       dataIndex: "date",
       render: (text, record) => (
         <span>
-          {moment(record.date).format("DD-MM-YYYY")} &nbsp;
+          {record.date}<span/>{" "}
+          <span/> 
           {record.doctorInfo}
         </span>
       ),
@@ -146,7 +165,10 @@ const DoctorAppointments = () => {
   return (
     <Layout>
       <h2>Appointments Lists</h2>
-      <Table columns={columns} dataSource={appointments} />
+      <Button type="primary" onClick={handleFilterAppointments}>
+        Show Today's Appointments
+      </Button>
+      <Table columns={columns} dataSource={filteredAppointments} />
     </Layout>
   );
 };

@@ -11,7 +11,7 @@ import { momentLocalizer } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import { Grid, Typography, Button, TextField } from "@mui/material";
 import "../styles/BookingPage.css"; // Import the CSS file for custom styles
-
+import image from "../components/LOGO.jpg"
 const localizer = momentLocalizer(moment);
 
 const BookingPage = () => {
@@ -248,7 +248,7 @@ const BookingPage = () => {
   
 
   return (
-    <Layout>
+    <Layout image={image}>
       <div className="booking-page-container">
         <div className="container m-2">
           {doctors && (

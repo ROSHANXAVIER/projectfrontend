@@ -10,6 +10,7 @@ import { faVideoSlash } from '@fortawesome/free-solid-svg-icons'
 
 const Appointments = () => {
   const [appointments, setAppointments] = useState([]);
+  const [todayAppointments, setTodayAppointments] = useState([]);
   const navigate = useNavigate();
 
   const [modalData, setModalData] = useState({
@@ -47,11 +48,27 @@ const Appointments = () => {
       });
       if (res.data.success) {
         setAppointments(res.data.data);
+        setTodayAppointments(res.data.data);
         console.log(res.data.data);
       }
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const filterTodayAppointments = () => {
+    const today = new Date();
+    const options = {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    };
+    const dateString = today.toLocaleDateString("en-US", options);
+    const date = dateString;
+const parts = date.split("/");
+const rearrangedDate = `${parts[1]}-${parts[0]}-${parts[2]}`;
+    const filteredAppointments = appointments.filter(appointment => appointment.date === rearrangedDate);
+    setTodayAppointments(filteredAppointments);
   };
 
   useEffect(() => {
@@ -68,7 +85,8 @@ const Appointments = () => {
       dataIndex: "date",
       render: (text, record) => (
         <span>
-          {moment(record.date).format("DD-MM-YYYY")} &nbsp;
+          {record.date}
+          <span>{" "}</span>
           {record.doctorInfo}
         </span>
       ),
@@ -115,7 +133,10 @@ const Appointments = () => {
   return (
     <Layout>
       <h2>Appointments Lists</h2>
-      <Table columns={columns} dataSource={appointments} />
+      <Button type="primary" onClick={filterTodayAppointments}>
+        Show Today's Appointments
+      </Button>
+      <Table columns={columns} dataSource={todayAppointments} />
       <Modal
         title="Patient Details"
         visible={modalData.visible}
