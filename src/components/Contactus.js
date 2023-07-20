@@ -52,12 +52,12 @@ const Contactus = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
       >
-        <Typography variant="h2" className="heading">
+        <Typography variant="h3" className="heading">
           Contact Us
         </Typography>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Box>
-            <Typography variant="h4" className="sub-heading">
+            <Typography variant="h5" className="sub-heading">
               Complaint Against
             </Typography>
             <TextField
@@ -71,7 +71,7 @@ const Contactus = () => {
             />
           </Box>
           <Box>
-            <Typography variant="h4" className="sub-heading">
+            <Typography variant="h5" className="sub-heading">
               Reason for Complaint
             </Typography>
             <TextField
@@ -86,6 +86,7 @@ const Contactus = () => {
               helperText={errors.complaintReason && "This field is required"}
             />
           </Box>
+          
           <Button type="submit" variant="contained" className="submit-button">
             Send
           </Button>

@@ -1,5 +1,5 @@
 .cards-page {
-    background-color: #ecf0f1;
+    background-color: rgb(30, 61, 77);
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -8,7 +8,7 @@
   }
   
   .page-heading {
-    color: #2980b9;
+    color: #f2f4f4;
     font-size: 24px;
     margin-bottom: 20px;
   }
@@ -32,7 +32,7 @@
   }
   
   .name-box {
-    background-color: #3498db;
+    background-color: #276787;
     color: #fff;
     font-size: 18px;
     font-weight: bold;
@@ -45,7 +45,7 @@
     background-color: #ecf0f1;
     color: #555;
     font-size: 14px;
-    padding: 10px;
+    padding: 7px;
     border-radius: 5px;
   }
   
