@@ -7,6 +7,7 @@ import { VideoCameraOutlined } from '@ant-design/icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { faVideoSlash } from '@fortawesome/free-solid-svg-icons'
+import { message } from "antd";
 
 const Appointments = () => {
   const [appointments, setAppointments] = useState([]);
@@ -56,6 +57,29 @@ const Appointments = () => {
     }
   };
 
+  const handleAppointmentCancellation = async (appointmentId) => {
+    try {
+      const res = await axios.post(
+        "/api/v1/user/cancel-appointment",
+        { appointmentId },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      if (res.data.success) {
+        message.success(res.data.message);
+        // Refresh the appointment list after cancellation
+        getAppointments();
+      } else {
+        message.error(res.data.message);
+      }
+    } catch (error) {
+      console.log(error);
+      message.error("Error in canceling appointment");
+    }
+  };
   const filterTodayAppointments = () => {
     const today = new Date();
     const options = {
@@ -92,9 +116,15 @@ const rearrangedDate = `${parts[1]}-${parts[0]}-${parts[2]}`;
   };
 
   const columns = [
+   
     {
-      title: "ID",
-      dataIndex: "_id",
+      title: "Doctor",
+      dataIndex: "date",
+      render: (text, record) => (
+        <span>
+          {record.doctorId}
+        </span>
+      ),
     },
     {
       title: "Date & Time",
@@ -112,16 +142,18 @@ const rearrangedDate = `${parts[1]}-${parts[0]}-${parts[2]}`;
       dataIndex: "status",
     },
     {
-      title: "Details",
-      dataIndex: "_id",
-      render: (text, record) => (
-        <div>
-          <Button type="primary" onClick={() => showModal(record)}>
-            Details
+      title: "Action",
+      dataIndex: "action",
+      render: (text, record) =>
+        record.status === "approved" ? (
+          <Button type="danger" onClick={() => handleAppointmentCancellation(record._id)}>
+            Cancel
           </Button>
-        </div>
-      ),
+        ) : (
+          <span>N/A</span>
+        ),
     },
+   
     {
       title: "Video Call",
       dataIndex: "call",
