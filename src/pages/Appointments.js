@@ -70,10 +70,26 @@ const rearrangedDate = `${parts[1]}-${parts[0]}-${parts[2]}`;
     const filteredAppointments = appointments.filter(appointment => appointment.date === rearrangedDate);
     setTodayAppointments(filteredAppointments);
   };
+  const handleDownloadImage = () => {
+    // Create a virtual anchor element
+    const anchor = document.createElement("a");
+    anchor.href = `data:image/jpeg;base64,${modalData.appointment.image}`;
+    anchor.download = "patient_image.jpeg";
+    
+    // Trigger a click event on the anchor to initiate the download
+    anchor.click();
+  };
 
   useEffect(() => {
     getAppointments();
   }, []);
+  const isBase64 = (str) => {
+    try {
+      return btoa(atob(str)) === str;
+    } catch (err) {
+      return false;
+    }
+  };
 
   const columns = [
     {
@@ -150,6 +166,13 @@ const rearrangedDate = `${parts[1]}-${parts[0]}-${parts[2]}`;
             <p>Gender: {modalData.appointment.gender}</p>
             <p>BloodGroup: {modalData.appointment.bloodgroup}</p>
             <p>Symptoms: {modalData.appointment.illness}</p>
+            {isBase64(modalData.appointment.image) ? (
+              <div><span>DOCS : </span><img style={{height:"200px"}} src={`data:image/jpeg;base64,${modalData.appointment.image}`} alt="" />
+               <Button onClick={handleDownloadImage}>Download Image</Button>
+              </div>
+            ) : (
+              <p>Invalid Image Data</p>
+            )}
           </>
         )}
       </Modal>

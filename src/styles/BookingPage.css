@@ -61,8 +61,39 @@
   box-shadow: none;
 }
 
+/* Hide the default file input */
+input[type="file"] {
+  display: none;
+}
+
+/* Style the custom file upload button */
+.custom-file-upload {
+  display: inline-block;
+  background-color: #469ba1;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.custom-file-upload:hover {
+  background-color: #458fa0;
+}
+
+/* Style the icon */
+.custom-file-upload span {
+  display: inline-flex;
+  align-items: center;
+}
+
+.custom-file-upload i {
+  margin-right: 8px;
+}
+
+
 .form-fields{
-  width: 600px;
+  width: 70vw;
 }
 .time-slots{
   display: inline; 

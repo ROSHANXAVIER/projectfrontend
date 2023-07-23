@@ -43,6 +43,7 @@ const DLogin = () => {
         onFinish={onfinishHandler}
         className="login-form"
       >
+        <img className="logos" src="LOGO.jpg"></img>
         <h3 className="text-center">Login</h3>
 
         <Form.Item label="Email" name="email">

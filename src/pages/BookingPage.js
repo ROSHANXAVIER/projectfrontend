@@ -15,6 +15,8 @@ import image from "../components/LOGO.jpg"
 const localizer = momentLocalizer(moment);
 
 const BookingPage = () => {
+  const [fileName, setFileName] = useState("");
+  const [postImage, setPostImage] = useState(null);
   const { user } = useSelector((state) => state.user);
   const params = useParams();
   const [doctors, setDoctors] = useState([]);
@@ -28,6 +30,32 @@ const BookingPage = () => {
   const [gender, setGender] = useState("");
   const [ill, setIll] = useState("");
   const [selectedSlot, setSelectedSlot] = useState(null); // New state variable for selected slot
+  const [file, setFile] = useState(null); // State to store the uploaded file
+
+
+  const [selectedFile, setSelectedFile] = useState();
+  const [attachment, setAttachment] = useState("");
+  
+  const imgChangeHandler = (event) => {
+    setSelectedFile(event.target.files[0]);
+    console.log(event.target.files[0])
+    setFileName(event.target.files[0].name)
+      var reader = new FileReader();
+      reader.readAsBinaryString(event.target.files[0]);
+      reader.onload = function () {
+        console.log(btoa(reader.result));
+        setAttachment(btoa(reader.result));
+      };
+      reader.onerror = function (error) {
+        console.log("Error: ", error);
+      };
+    
+  };
+ 
+  
+
+  
+  
   const [timeSlots,settimeSlots]=useState([ { slot: "9am - 10am", selection: "notselected" },
   { slot: "10am - 11am", selection: "notselected" },
   { slot: "11am - 12am", selection: "notselected" },
@@ -57,22 +85,43 @@ const BookingPage = () => {
     }
   };
 
-  // Handle availability
-  const handleAvailability = async () => {
+
+  // Handle booking
+  const handleBooking = async () => {
     try {
+      setIsAvailable(true);
+      if (!date || !time) {
+        return alert("Date & Time are required");
+      }
+  
+      // Create a new FormData object
+     
+      // Append the file to the FormData object
+    
       dispatch(showLoading());
-      const res = await axios.post(
-        "/api/v1/user/booking-availability",
-        { doctorId: params.doctorId, date, time },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
+      const res = await axios.post("/api/v1/user/book-appointment",
+      {
+        doctorId: params.doctorId,
+        userId: user._id,
+        doctorInfo: doctors,
+        userInfo: user,
+        date: date,
+        time: time,
+        name: name,
+        age: age,
+        gender: gender,
+        bloodgroup: blood,
+        illness: ill,
+        gmeet:"You will get your link soon",
+        image:attachment,
+      }
+      , {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
       dispatch(hideLoading());
       if (res.data.success) {
-        setIsAvailable(true);
         message.success(res.data.message);
       } else {
         message.error(res.data.message);
@@ -83,49 +132,7 @@ const BookingPage = () => {
       message.error("An error occurred. Please try again.");
     }
   };
-
-  // Handle booking
-  const handleBooking = async () => {
-    try {
-      setIsAvailable(true);
-      if (!date || !time) {
-        return alert("Date & Time are required");
-      }
-      dispatch(showLoading());
-      const res = await axios.post(
-        "/api/v1/user/book-appointment",
-        {
-          doctorId: params.doctorId,
-          userId: user._id,
-          doctorInfo: doctors,
-          userInfo: user,
-          date: date,
-          time: time,
-          name: name,
-          age: age,
-          gender: gender,
-          bloodgroup: blood,
-          illness: ill,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-      dispatch(hideLoading());
-      if (res.data.success) {
-        message.success(res.data.message);
-      }
-      else{
-        message.error(res.data.message);
-      }
-    } catch (error) {
-      dispatch(hideLoading());
-      console.log(error);
-      message.error("An error occurred. Please try again.");
-    }
-  };
+  
 
   useEffect(() => {
     getDoctorData();
@@ -324,7 +331,7 @@ const BookingPage = () => {
                  <h6></h6>
                  <h5>Enter your details:</h5>
                 <Grid container spacing={2}>
-                  <Grid item xs={12} sm={6}>
+                  <Grid item xs={6} sm={6}>
                     <TextField
                       type="text"
                       placeholder="Full Name"
@@ -334,7 +341,7 @@ const BookingPage = () => {
                       fullWidth
                     />
                   </Grid>
-                  <Grid item xs={12} sm={6}>
+                  <Grid item xs={6} sm={6}>
                     <TextField
                       type="text"
                       placeholder="Age"
@@ -344,7 +351,7 @@ const BookingPage = () => {
                       fullWidth
                     />
                   </Grid>
-                  <Grid item xs={12} sm={6}>
+                  <Grid item xs={6} sm={6}>
                     <Radio.Group
                       onChange={(e) => {
                         setGender(e.target.value);
@@ -355,7 +362,7 @@ const BookingPage = () => {
                       <Radio value="Female">Female</Radio>
                     </Radio.Group>
                   </Grid>
-                  <Grid item xs={12} sm={6}>
+                  <Grid item xs={6} sm={6}>
                     <TextField
                       type="text"
                       placeholder="Blood Group"
@@ -365,7 +372,7 @@ const BookingPage = () => {
                       fullWidth
                     />
                   </Grid>
-                  <Grid item xs={12}>
+                  <Grid item xs={6}>
                     <TextField
                       type="text"
                       placeholder="Brief your symptoms/illness"
@@ -378,6 +385,27 @@ const BookingPage = () => {
                       rows={4}
                     />
                   </Grid>
+                  <Grid item xs={6} sm={6} style={{ paddingTop: "1.7vh" }}>
+  <label class="custom-file-upload">
+    <input type="file" id="fileInput" 
+       lable="Image"
+       name="myFile"
+       accept='.jpeg, .png, .jpg'
+       multiple 
+    onChange={imgChangeHandler} />
+    <span><i class="fas fa-cloud-upload-alt"></i> Upload Necessary Document</span>
+  </label>
+  {fileName && (
+    <div>
+      <p>Selected files:</p>
+      <p>{fileName}</p>
+      {/* {fileName.map((file, index) => (
+        <p key={index}>{file}</p>
+      ))} */}
+    </div>
+  )}
+</Grid>
+
                 </Grid>
                 <h6></h6>
                 <Button

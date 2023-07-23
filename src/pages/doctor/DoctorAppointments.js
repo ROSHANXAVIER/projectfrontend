@@ -12,6 +12,22 @@ const DoctorAppointments = () => {
   const [appointments, setAppointments] = useState([]);
   const [filteredAppointments, setFilteredAppointments] = useState([]);
   const navigate = useNavigate();
+  const handleDownloadImage = () => {
+    // Create a virtual anchor element
+    const anchor = document.createElement("a");
+    anchor.href = `data:image/jpeg;base64,${modalData.appointment.image}`;
+    anchor.download = "patient_image.jpeg";
+    
+    // Trigger a click event on the anchor to initiate the download
+    anchor.click();
+  };
+  const isBase64 = (str) => {
+    try {
+      return btoa(atob(str)) === str;
+    } catch (err) {
+      return false;
+    }
+  };
 
   const getAppointments = async () => {
     try {
@@ -68,21 +84,36 @@ const rearrangedDate = `${parts[1]}-${parts[0]}-${parts[2]}`;
       message.error("Something Went Wrong");
     }
   };
+  const [modalData, setModalData] = useState({
+    visible: false,
+    appointment: null
+  });
+
+  const showModal = (appointment) => {
+    setModalData({
+      visible: true,
+      appointment
+    });
+  };
+  
+  const handleCancel = () => {
+    setModalData({
+      visible: false,
+      appointment: null
+    });
+  };
+
+  const handleOk = () => {
+    setModalData({
+      visible: false,
+      appointment: null
+    });
+  };
+
   const AppointmentModal = ({ record }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const showModal = () => {
-      setIsModalOpen(true);
-    };
-
-    const handleCancel = () => {
-      setIsModalOpen(false);
-    };
-
-    const handleOk = () => {
-      setIsModalOpen(false);
-    };
-
+  
     return (
       <div>
         <Button type="primary" onClick={showModal}>
@@ -94,6 +125,7 @@ const rearrangedDate = `${parts[1]}-${parts[0]}-${parts[2]}`;
           <p>Gender: {record.gender}</p>
           <p>BloodGroup: {record.bloodgroup}</p>
           <p>Symptoms: {record.illness}</p>
+          
         </Modal>
       </div>
     );
@@ -122,7 +154,13 @@ const rearrangedDate = `${parts[1]}-${parts[0]}-${parts[2]}`;
     {
       title: "Patient Details",
       dataIndex: "i",
-      render: (text, record) => <AppointmentModal record={record} />,
+      render: (text, record) => (
+        <div>
+          <Button type="primary" onClick={() => showModal(record)}>
+            Details
+          </Button>
+        </div>
+      ),
     },
     {
       title: "Conference",
@@ -169,6 +207,29 @@ const rearrangedDate = `${parts[1]}-${parts[0]}-${parts[2]}`;
         Show Today's Appointments
       </Button>
       <Table columns={columns} dataSource={filteredAppointments} />
+      <Modal
+        title="Patient Details"
+        visible={modalData.visible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+      >
+        {modalData.appointment && (
+          <>
+            <p>Name: {modalData.appointment.name}</p>
+            <p>Age: {modalData.appointment.age}</p>
+            <p>Gender: {modalData.appointment.gender}</p>
+            <p>BloodGroup: {modalData.appointment.bloodgroup}</p>
+            <p>Symptoms: {modalData.appointment.illness}</p>
+            {isBase64(modalData.appointment.image) ? (
+              <div><span>DOCS : </span><img style={{height:"200px"}} src={`data:image/jpeg;base64,${modalData.appointment.image}`} alt="" />
+               <Button onClick={handleDownloadImage}>Download Doc</Button>
+              </div>
+            ) : (
+              <p>Invalid Image Data</p>
+            )}
+          </>
+        )}
+      </Modal>
     </Layout>
   );
 };
