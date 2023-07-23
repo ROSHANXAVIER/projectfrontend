@@ -295,7 +295,7 @@ const BookingPage = () => {
                         dispatch(hideLoading());
                         console.log(error);
                         message.error(
-                          "An error occurred. Please try again."
+                          "Please select an appropriate date. The selected date is in the past"
                         );
                       }
                     };
@@ -310,7 +310,7 @@ const BookingPage = () => {
                       onClick={() => {setSelectedSlot(slot.slot);
                         sele(slot.slot)}}
                       key={slot.slot}
-                      disabled={isAvailable}
+
                       className={`${
                         selectedSlot === slot.slot ? "selected" : "not-selected"
                       }`}
@@ -412,7 +412,6 @@ const BookingPage = () => {
                   variant="contained"
                   className="b"
                   onClick={handleBooking}
-                  disabled={isAvailable}
                 >
                   Book Now
                 </Button>
