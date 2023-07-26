@@ -99,28 +99,6 @@ const Videocalluser = () => {
         </Button>
       </motion.div>
       
-      <motion.div
-        className={`upi-box ${isLinkAvailable ? "active" : ""}`}
-        initial={{ opacity: 0, y: -10 }}
-        animate={{ opacity: 1, y: -130 }}
-        transition={{ duration: 0.8, delay: 0.3 }}
-      >
-        <Typography variant="h2" className="upi-heading">
-          UPI ID
-        </Typography>
-        <div className="upi-input-container">
-          <TextField
-            label="...."
-            variant="outlined"
-            className="upi-input"
-            value={upiId}
-            onChange={(e) => setUpiId(e.target.value)}
-          />
-          <Button variant="contained" className="copy-button" onClick={handleCopyUpiId}>
-            Copy
-          </Button>
-        </div>
-      </motion.div>
     </div>
   );
 };

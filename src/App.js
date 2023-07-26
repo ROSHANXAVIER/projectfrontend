@@ -24,6 +24,11 @@ import Videocall from "./components/Videocall";
 import Videocalluser from "./components/Videocalluser";
 import Contactus from "./components/Contactus";
 import Query from "./pages/admin/Query";
+import Coins from "./components/Coins";
+import Wallet from "./components/Wallet";
+import Coinreq from "./pages/admin/Coinreq";
+import Dwallet from "./components/Dwallet";
+import Redeem from "./pages/admin/Redeem";
 function App() {
   const { loading } = useSelector((state) => state.alerts);
   return (
@@ -118,6 +123,46 @@ function App() {
               element={
                 <ProtectedRoute>
                   <Appointments />
+                </ProtectedRoute>
+              }
+            />
+             <Route
+              exact path="/coins"
+              element={
+                <ProtectedRoute>
+                  <Coins/>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              exact path="/wallet"
+              element={
+                <ProtectedRoute>
+                  <Wallet/>
+                </ProtectedRoute>
+              }
+            />
+             <Route
+              exact path="/dwallet"
+              element={
+                <ProtectedRoute>
+                  <Dwallet/>
+                </ProtectedRoute>
+              }
+            />
+             <Route
+              exact path="/redeem"
+              element={
+                <ProtectedRoute>
+                  <Redeem/>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              exact path="/coinrequest"
+              element={
+                <ProtectedRoute>
+                  <Coinreq/>
                 </ProtectedRoute>
               }
             />

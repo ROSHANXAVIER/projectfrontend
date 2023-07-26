@@ -57,29 +57,38 @@ const Appointments = () => {
     }
   };
 
-  const handleAppointmentCancellation = async (appointmentId) => {
-    try {
-      const res = await axios.post(
-        "/api/v1/user/cancel-appointment",
-        { appointmentId },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
+  const handleAppointmentCancellation = (appointmentId) => {
+    Modal.confirm({
+      title: "Confirm Appointment Cancellation",
+      content: "Are you sure you want to cancel this appointment? 50 R Coins will be deducted as fine.",
+      okText: "Yes",
+      cancelText: "No",
+      onOk: async () => {
+        try {
+          const res = await axios.post(
+            "/api/v1/user/cancel-appointment",
+            { appointmentId },
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+            }
+          );
+          if (res.data.success) {
+            message.success(res.data.message);
+            // Refresh the appointment list after cancellation
+            getAppointments();
+          } else {
+            message.error(res.data.message);
+          }
+        } catch (error) {
+          console.log(error);
+          message.error("Error in canceling appointment");
         }
-      );
-      if (res.data.success) {
-        message.success(res.data.message);
-        // Refresh the appointment list after cancellation
-        getAppointments();
-      } else {
-        message.error(res.data.message);
-      }
-    } catch (error) {
-      console.log(error);
-      message.error("Error in canceling appointment");
-    }
+      },
+    });
   };
+  
   const filterTodayAppointments = () => {
     const today = new Date();
     const options = {

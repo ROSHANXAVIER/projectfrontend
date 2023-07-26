@@ -35,6 +35,11 @@ const Layout = ({ children }) => {
       icon: "fa-solid fa-user",
     },
     {
+      name: "Wallet",
+      path: "/dwallet",
+      icon: "fa-solid fa-wallet",
+    },
+    {
       name: "Contact Us",
       path: "/Contactus",
       icon: "fa-solid fa-phone",

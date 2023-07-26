@@ -12,6 +12,10 @@ const DoctorAppointments = () => {
   const [appointments, setAppointments] = useState([]);
   const [filteredAppointments, setFilteredAppointments] = useState([]);
   const navigate = useNavigate();
+  const AppointmentModal = ({ record }) => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+ };
+
   const handleDownloadImage = () => {
     // Create a virtual anchor element
     const anchor = document.createElement("a");
@@ -110,27 +114,7 @@ const rearrangedDate = `${parts[1]}-${parts[0]}-${parts[2]}`;
     });
   };
 
-  const AppointmentModal = ({ record }) => {
-    const [isModalOpen, setIsModalOpen] = useState(false);
-
-  
-    return (
-      <div>
-        <Button type="primary" onClick={showModal}>
-          Details
-        </Button>
-        <Modal title="Patient Details" visible={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-          <p>Name: {record.name}</p>
-          <p>Age: {record.age}</p>
-          <p>Gender: {record.gender}</p>
-          <p>BloodGroup: {record.bloodgroup}</p>
-          <p>Symptoms: {record.illness}</p>
-          
-        </Modal>
-      </div>
-    );
-  };
-
+ 
   const columns = [
     {
       title: "ID",

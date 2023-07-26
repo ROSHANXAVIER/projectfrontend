@@ -14,6 +14,17 @@ export const userMenu = [
     path: "/Contactus",
     icon: "fa-solid fa-phone",
   },
+  {
+    name: "Buy R Coin",
+    path: "/coins",
+    icon: "fa-solid fa-coins",
+  },
+  {
+    name: "Wallet",
+    path: "/wallet",
+    icon: "fa-solid fa-wallet",
+  },
+
 ];
 
 // admin menu
@@ -33,6 +44,16 @@ export const adminMenu = [
     name: "Users",
     path: "/admin/users",
     icon: "fa-solid fa-user",
+  },
+  {
+    name: "Coin Request",
+    path: "/coinrequest",
+    icon: "fa-solid fa-dollar-sign",
+  },
+  {
+    name: "Redeem Request",
+    path: "/redeem",
+    icon: "fa-solid fa-hand-holding-usd",
   },
   {
     name: "Complaints",
