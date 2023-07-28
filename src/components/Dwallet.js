@@ -73,9 +73,13 @@ const Dwallet = () => {
           </Title>
 
           <Typography style={{ color: "blue" }}>BALANCE</Typography>
-          <Button type="primary" onClick={handleRedeemBalance}>
-            Redeem Balance
-          </Button>
+          {balance > 0 ? (
+        <Button type="primary" onClick={handleRedeemBalance}>
+          Redeem Balance
+        </Button>
+      ) : (
+        <p>Insufficient balance to redeem</p>
+      )}
         </Card>
         {/* Note Box */}
         <Card

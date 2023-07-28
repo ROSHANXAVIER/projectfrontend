@@ -34,7 +34,7 @@ const BookingPage = () => {
 
 
   const [selectedFile, setSelectedFile] = useState();
-  const [attachment, setAttachment] = useState("");
+  const [attachment, setAttachment] = useState("none");
   
   const imgChangeHandler = (event) => {
     setSelectedFile(event.target.files[0]);

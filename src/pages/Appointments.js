@@ -217,7 +217,7 @@ const rearrangedDate = `${parts[1]}-${parts[0]}-${parts[2]}`;
           </>
         )}
       </Modal>
-      <h5>Enter the call portal during your time slot.</h5>
+      
     </Layout>
   );
 };

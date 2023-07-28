@@ -15,6 +15,7 @@ import { useDispatch } from "react-redux";
 import { showLoading, hideLoading } from "../redux/features/alertSlice";
 
 const Videocall = () => {
+  const [prescription, setPrescription] = useState("");
   const params = useParams();
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
@@ -24,6 +25,30 @@ const Videocall = () => {
     navigate("/doctor-appointments");
   };
 
+  const handleSendPrescription = async () => {
+    try {
+      // Make an API call to send the prescription to the patient
+      const res = await axios.post(
+        "/api/v1/doctor/sendPrescription",
+        { prescription:prescription, appId: params.appId }, // Pass the prescription data along with the appointment ID
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+
+      if (res.data.success) {
+        // Reset the prescription input field after successful sending
+        setPrescription("");
+        message.success("Prescription sent successfully");
+      } else {
+        message.error("Error sending prescription");
+      }
+    } catch (error) {
+      console.error("Error sending prescription:", error);
+    }
+  };
   const handleSendLink = async () => {
     try {
       // Make an API call to send the link
@@ -80,6 +105,24 @@ const Videocall = () => {
           onClick={handleSendLink}
         >
           Send Link To Patient
+        </Button>
+      </Box>
+      <Box className="pbox">
+        <TextField
+          label="Prescription"
+          variant="outlined"
+          multiline
+          rows={4}
+          className="input"
+          value={prescription}
+          onChange={(e) => setPrescription(e.target.value)}
+        />
+        <Button
+          variant="contained"
+          className="button"
+          onClick={handleSendPrescription}
+        >
+          Send Prescription
         </Button>
       </Box>
     </div>
